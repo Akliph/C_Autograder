@@ -13,13 +13,10 @@ def check_process_result(result):
 
 
 def main():
-    # Correctness flag
-    f_correct = 0
-
     # Parse arguments from the user
     parser = argparse.ArgumentParser()
     parser.add_argument("-n", "--name", help="Name of file")
-    parser.add_argument("-hw", "--homework", help="Homework Number")
+    parser.add_argument("-t", "--testcase", help="Test case Directory")
     parser.add_argument("-c", "--compile", help="Name of the executable")
 
     args = parser.parse_args()
@@ -51,15 +48,13 @@ def main():
 
         # Only output a result if it deviates from the output
         if "FC: no differences encountered" not in result:
-            f_correct -= 1
             print(result)
+        else:
+            print("Correct!")
 
         i += 1
         input_path = gen_file_path(homework_num, i, "in")
         output_path = gen_file_path(homework_num, i, "out")
-
-        if f_correct >= 0:
-            print("All correct 100%")
 
 
 if __name__ == "__main__":
@@ -68,5 +63,5 @@ if __name__ == "__main__":
     except RuntimeError as e:
         print(e)
         print("Incorrect usage, must contain flags [-n  | name of your c file] \n" +
-              "                                    [-hw | the homework number] \n" +
+              "                                    [-t | the test case directory] \n" +
               "                                    [-c  | the desired name of the executable]")
