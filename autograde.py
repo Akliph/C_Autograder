@@ -3,8 +3,8 @@ import argparse
 from os import path, remove
 
 
-def gen_file_path(num, i, form):
-    return f"tc_hw{num}/tc{i:02}." + form
+def gen_file_path(name, i, form):
+    return f"{name}/tc{i:02}." + form
 
 
 def check_process_result(result):
@@ -24,7 +24,7 @@ def main():
     # Define arguments in variable
     program_name = args.name
     exe_name = args.compile
-    homework_num = args.homework
+    tc_directory = args.testcase
 
     # Compile the c file
     result = subprocess.run(f"g++ {program_name} -o {exe_name}")
@@ -32,8 +32,8 @@ def main():
 
     # Run every test case
     i = 1
-    input_path = gen_file_path(homework_num, i, "in")
-    output_path = gen_file_path(homework_num, i, "out")
+    input_path = gen_file_path(tc_directory, i, "in")
+    output_path = gen_file_path(tc_directory, i, "out")
     while path.exists(input_path):
         print(f"Running {program_name} < {input_path}...")
 
@@ -53,8 +53,8 @@ def main():
             print("Correct!")
 
         i += 1
-        input_path = gen_file_path(homework_num, i, "in")
-        output_path = gen_file_path(homework_num, i, "out")
+        input_path = gen_file_path(tc_directory, i, "in")
+        output_path = gen_file_path(tc_directory, i, "out")
 
 
 if __name__ == "__main__":
